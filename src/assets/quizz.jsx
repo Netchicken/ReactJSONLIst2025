@@ -6,14 +6,6 @@ export const sortedListAnswers = () => {
   console.log("sortedListAnswers in quiz.js", listSorted);
   return listSorted;
 };
-// import { React, useMemo } from "react";
-// export const useSortedListAnswers = () => {
-//   return useMemo(() => {
-//     const list = quizData.map((item) => ({ value: item.A, label: item.A }));
-//     const listSorted = [...list].sort((a, b) => (a.value > b.value ? 1 : -1));
-//     return listSorted;
-//   }, []);
-// };
 
 export const quizData = [
   {
