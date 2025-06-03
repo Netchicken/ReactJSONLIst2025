@@ -1,23 +1,26 @@
 import { React, useState } from "react";
 import "./App.css";
-import { quizData, useSortedListAnswers } from "./Assets/quizz.jsx";
+import { quizData, sortedListAnswers } from "./Assets/quizz.jsx";
 import Select from "react-select";
 import { Random } from "./Utilities/Random.jsx";
 import { selectCustomStyles } from "./Utilities/SelectReactSetting.jsx";
 
 function App() {
   const allData = quizData;
+  const getRandomIndex = Random(allData.length);
   const [gameData, setGameData] = useState({ Q: "Start", A: "Start" });
-  const [answerData, setAnswerData] = useState(useSortedListAnswers);
+  // const [answerData, setAnswerData] = useState(sortedListAnswers);
+  const answerData = sortedListAnswers();
   const [answer, setAnswer] = useState("");
   const [winlose, setWinlose] = useState("");
 
   let answerLet;
   let gameDataLet = { Q: "Start", A: "Start" };
+
   const onClickHandlerNewGame = () => {
     setAnswer("");
     setWinlose("");
-    let rand = Random(allData.length);
+    let rand = getRandomIndex;
     //the actual question and answer
     setGameData({ Q: allData[rand].Q, A: allData[rand].A });
     gameDataLet = { Q: allData[rand].Q, A: allData[rand].A };
@@ -29,6 +32,7 @@ function App() {
   const handleAnswerChange = (e) => {
     setAnswer(e.value); //this holds the state version - it can get passed around and refreshes the front end
     answerLet = e.value; //we need to pass the answer as a let so that its available immediatly and not refreshing the screen
+    setWinlose("- you " + winLoseCalc(answerLet));
     console.log(
       "answer = ",
       answerLet +
@@ -37,7 +41,6 @@ function App() {
         "  gameDataLet.A = " +
         gameDataLet.A
     );
-    setWinlose("- you " + winLoseCalc(answerLet));
   };
 
   const winLoseCalc = (answerLet) => {
