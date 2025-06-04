@@ -21,7 +21,7 @@ function App() {
   const [winlose, setWinlose] = useState("");
 
   // Variables to hold the answer and question/answer data temporarily
-  let answerLet;
+  let selectedAnswer;
   let gameDataLet = { Q: "Start", A: "Start" };
 
   // When the "Choose a Random Question" button is clicked
@@ -45,12 +45,12 @@ function App() {
   // When the user selects an answer from the dropdown
   const handleAnswerChange = (e) => {
     setAnswer(e.value); // Update the answer state
-    answerLet = e.value; // Store the answer in a variable
-    setWinlose("- you " + winLoseCalc(answerLet)); // Set win/lose message
+    selectedAnswer = e.value; // Store the answer in a variable
+    setWinlose("- you " + winLoseCalc(selectedAnswer)); // Set win/lose message
     // Log for debugging
     console.log(
       "answer = ",
-      answerLet +
+      selectedAnswer +
         "  gameplay = " +
         gameData.A +
         "  gameDataLet.A = " +
@@ -59,14 +59,17 @@ function App() {
   };
 
   // Function to check if the answer is correct
-  const winLoseCalc = (answerLet) => {
-    if (answerLet !== "undefined") {
-      if (answerLet === gameData.A) {
+  const winLoseCalc = (selectedAnswer) => {
+    // If the selected answer is not undefined
+    if (selectedAnswer !== undefined && selectedAnswer !== null) {
+      // If the selected answer matches the correct answer
+      if (selectedAnswer === gameData.A) {
         return "win"; // Correct answer
       } else {
         return "lose"; // Wrong answer
       }
     }
+    return ""; // No answer selected
   };
 
   return (
